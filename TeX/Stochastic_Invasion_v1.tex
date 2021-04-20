@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage{hyperref}
+\usepackage{graphicx, amsmath, amssymb, bm, scrextend, titling, physics, bbm, url}
+\usepackage{hyperref}
+\setlength\parindent{0pt}
+\usepackage{geometry}
+
+
+\title{Dynamic Importation and onward transmission}
+\author{Thomas House, \quad Jacob Curran-Sebastian }
+\date{March 2021}
+
+
+\begin{document}
+\maketitle
+
+We consider the disease dynamics of an invading Variant of Concern (VoC) into a population that has had previous exposure to a wild-type strain and has undergone an incomplete vaccination program with 3 different vaccines (Pfizer (Pf), Astra-Zeneca (AZ) and a new, updated vaccine (N)). The novel strain is assumed to exhibit some resistance to both infection-acquired and vaccine-acquired immunity. We model the invasion and early transmission of this new strain using a multi-type branching process model \cite{dorman2004garden}. 
+
+Each particle of type $i$ produces a number of offspring $j = (j_1, \dots, j_r)$ of each type after a time that is ${\mathrm{Exp}}(\beta+\gamma)$ distributed according to the generating function:
+
+\begin{equation} \label{offspring}
+G_i(s) = \sum_{y=0}^\infty p_{ij}s^j
+\end{equation}
+where $s^j = s_1^{j_1}\dots_n^{j_n}$ and $p_{ij}$ is the probability that a particle of type $i$ gives birth to $(j_1, \dots,j_r) $ particles of type $1, \dots, r$. The process $Y(t) = (Y_i(t))_{i=1}^r$ counts the number of particles alive at time $t$ starting from a single particle of type $i$ at time $t=0$. For each $i$, the process $Y_i(t)$ has generating function $Q_i(t, s) = \sum_{=0}^\infty{\mathrm{Pr}}(Y_i(t) = n)s^n$. 
+
+We obtain expressions for the $Q_i(t)$ by solving:
+\begin{equation}
+    \frac{\partial Q_i(t, s)}{\partial t} = -(\beta + \gamma)[Q_i(t, s) - P_i(Q)], \quad Q(0, s) = s \label{Qeq}
+\end{equation}
+where $Q(t, s) = [Q_i(t, s)]_{i=1}^r$. Setting $s=0$ gives the vector  $q(t) = Q(0, s)$ of extinction probabilities for a process starting with a single particle of type $i$. 
+
+We then consider the process $Z(t)$ of total particle counts that begins with no particles of any type but allows immigration of particles of type $i$ at a rate $\eta_i(t)$. This process has the generating function $\sum_{n=0}^\infty {\mathrm{Pr}}(Z(t) = n)s^n$, for which we solve:
+\begin{equation}
+    \frac{\partial R(t, s)}{\partial t} = -\lambda(t)R(t, s) + \lambda(t)R(t, s)Q(t, s), \quad R(0, s) = 1 \label{Req}
+\end{equation}
+Setting $s=0$ as before, we find the probability of zero particles at time $r(t) = R(t, 0)$.  
+
+The vector of particle means at time $t$, $m(t) = {\mathbb{E}}[Z(t)]$ is given by:
+\begin{equation}
+m(t) = m(0){\mathrm{e}}^{t\Omega} + \int_0^t \eta(\tau){\mathrm{e}}^{(t-\tau)\Omega} {\mathrm{d}}\tau 
+\end{equation}
+where the matrix $\Omega$ has $(i, j)^{th}$ entry given by $\frac{\partial P_i}{\partial s_j}({\vb{1}})$. Conditioning on the process not reaching $0$ particles we obtain $\mu (t) = \frac{m(t)}{1-r(t)}$. 
+
+In order to obtain the variance matrix for the process $Z(t)$, we consider the variance $W_i(t)$ for a process that considers only immigration of particles of type $i$, which can be calculated via:
+
+\begin{equation}
+W_i(t) = \int_0^t \eta_i(t) {\mathbb{E}}[Y_T^*Y_T | T=\tau] \, {\mathrm{d}}\tau
+\end{equation}
+
+If the matrix $\Omega$ is diagonalisable, so that $\Omega = ADA^{-1}$, and immigration is constant, so that $\eta_i(t) = \eta_i$, we have that:
+
+\begin{equation}
+W_i(t) = \eta_i H\Delta H^{-1} {\mathrm{Vec}}(C)
+\end{equation}
+ 
+where the matrix $H= A \otimes (A^*)^{-1} \otimes (A^*)^{-1}$, ${\mathrm{Vec}}$ is the operator that vectorises the matrix $C$ by stacking its columns. $C$ is the $r^2 \times r$ matrix consisting of block $r \times r$ matrices $C_i$, given by:
+
+\begin{equation}
+C_i = \omega_i\Big(\frac{\partial^2 P_i}{\partial s_j^2}({\vb{1}}) + {\mathrm{diag}}(\frac{\partial P_i}{\partial s_j}({\vb{1}}) + e_i^*e_i - e_i^* \frac{\partial P_i}{\partial s_j}({\vb{1}}) - \frac{\partial P_i}{\partial s_j}({\vb{1}})^*e_i\Big)
+\end{equation}
+Finally, $\Delta$ is the diagonal matrix whose $(i, j, k)^{th}$ entry is given by:
+\begin{equation}
+\frac{1}{\delta_i - (\delta_j + \delta_k)}\big[{\mathrm{e}}^{\delta_i t} - {\mathrm{e}}^{(\delta_j + \delta_k) t}\big] 
+\end{equation}
+where $\delta_i$ is the $i^{th}$ diagonal entry of the matrix $D$. 
+
+In this model we have 16 types, denoted $N_{c, {\mathrm{sus}}, v}$ where $c \in \{E, I\}$ denotes whether an individual is exposed or infectious, $ {\mathrm{sus}} \in \{S, R\}$ denotes whether an individual is susceptible to or recovered from the wild-type strain and $v \in \{u, , az, pf, new\}$ denotes whether an individual is unvaccinated or vaccinated with the Astra-Zeneca, Pfizer or a newly-developed vaccine. Each infectious individual has a reduced transmissibility of the invading strain due to their vaccine status $(\kappa_v)$ and their previous infection with a wild-type strain $(\nu_{\mathrm{sus}})$. An exposed individual does not transmit and progresses to the next stage of infection at a rate $\sigma$, so that $P_i(s) = s$ for $1 \leq i \leq 8$. 
+
+Infectious individuals can infect susceptibles with any vaccine status or disease history. InfectiosIn our model we also allow for superspreading events (SSEs)... The generating function for an infectious individual is therefore given by:
+
+\begin{equation}
+P_i(s) = \frac{1}{8} \frac{\beta}{\beta+\gamma}\sum_{m=0}^8 (1 + \frac{1}{k}(1-s_m))^{-k} s_i + \frac{\gamma}{\beta+\gamma}
+\end{equation}
+for $9 \leq i \leq 16$. The fraction $\frac{1}{8}$ represents the assumption that infectious cases of one type are equally likely to infect susceptibles belonging to any other type (could be revised!!). Immigration of cases occurs at a constant rate only for unvaccinated cases who are exposed to a new variant and have not had any previous exposed to any other strain so that $\eta_1(t) = \eta$ and $\eta_i(t) = 0 \, \forall i \geq 2$.
+
+\bibliographystyle{plain}
+\bibliography{/Users/jakeyc-s/BPs_for_VoC/references.bib}
+\end{document}
+
+
