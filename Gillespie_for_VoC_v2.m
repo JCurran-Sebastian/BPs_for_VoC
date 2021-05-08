@@ -100,14 +100,14 @@ hold on
 xvec = 0:0.01:limx(2);
 plot(xvec,lognpdf(xvec,phat(1),phat(2)),'Linewidth',3)
 plot(xi,f,'b','Linewidth',3)
-title({['Lognormal fit to time to reach infection prevalence of ',num2str(Plim),': \mu = ',num2str(phat(1)),', \sigma = ',num2str(phat(2))]},{['Kernel density mode = ',num2str(xi(modeidx)),'; Lognormal mode = ',num2str(exp(phat(1)-phat(2)^2))]})
+title({['Lognormal fit to time to reach infection prevalence of ',num2str(Plim),': \mu = ',num2str(phat(1)),', \sigma = ',num2str(phat(2))]},{['Kernel density mode = ',num2str(xi(modeidx)),'; Lognormal mode = ',num2str(exp(phat(1)-phat(2)^2)),'; Lognormal mean = ',num2str(exp(phat(1)+(phat(2)^2)/2))]})
 xlabel('Time (days)')
 ylabel('Probability density')
 
 % Automatic estimation of lognormal fit
 phat = lognfit(outputMat(:,1));
 disp(['Observed statistics for time to hit infection prevalence of ',num2str(Plim),': ',...
-    'mode (of kernel) = ',num2str(xi(modeidx)),'; median = ',num2str(median(outputMat(:,1))),'; mean = ',num2str(mean(outputMat(:,1))),' days']) 
+    '(kernel density) mode = ',num2str(xi(modeidx)),'; (sample) median = ',num2str(median(outputMat(:,1))),'; (sample) mean = ',num2str(mean(outputMat(:,1))),' days']) 
 disp(['Lognormal fit to times to hit ',num2str(Plim),' gives following parameters (for underlying Normal):']);
 disp(['Mean = ',num2str(phat(1))])
 disp(['Std  = ',num2str(phat(2))])
