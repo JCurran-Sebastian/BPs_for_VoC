@@ -1,0 +1,219 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfig}
+\usepackage{vmargin}
+\usepackage{mathrsfs}
+\usepackage{mathbbol}
+\usepackage[round]{natbib}
+\usepackage[parfill]{parskip}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\rhead{\includegraphics[width=3.5cm]{../juniper/juniper-light-bg.png}}
+\lhead{\includegraphics[width=2.5cm]{../juniper/Manchester.pdf}}
+
+% Here enter any other preamble
+
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\ba}{\begin{equation} \begin{aligned}}
+\newcommand{\ea}{\end{aligned} \end{equation}}
+
+%\newtheorem{mydef}[equation]{Definition}
+\newtheorem{mydef}{Definition}
+
+\title{\sc Importation of Variants and Border Control}
+\author{Thomas House \and Jacob Curran Sebastian \and University of Manchester
+COVID-19 Modelling Group \and JUNIPER Consortium}
+\date{Report for SPI-M 24 March 2021}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{fancy}
+\section{Summary of key results}
+
+\begin{itemize}
+\item We are currently seeing just under a couple of vaccine escape VoC infections
+detected per day.
+\item Even if this rate continues, it would require stopping over 99\% of new
+introductions to have a reasonable chance of stopping introduction before
+the 100 or so days required to produce updated vaccine.
+\item In the (more realistic) scenario of exponentially growing importations,
+success rates need to be over 99.9\% successful to achieve similar results.
+\item Even for successfully controlled introductions, the time to extinction
+may mean that the UK would almost never be in a position of `zero variants'.
+\end{itemize}
+
+\section{Analysis of VoC data}
+
+Data were taken from the \texttt{VOC202012\_02\_linelist\_20210319} file on the
+DSTL server. This was separated into exposure types, and the `Traveller' stream
+was analysed using the methods from \citet{House:2018}. These indicate
+introduction of new infections at a rate of approximately 1.7 per day with no
+evidence of exponential growth as shown in Figure~\ref{fig:voc}.
+
+The latest analysis from the ONS CIS for the B.1.1.7 variant is shown in
+Figure~\ref{fig:ONS} and shows dynamics that are arguably consistent with
+a `stochastic delay then exponential takeoff' model of strain emergence.
+
+\section{Dynamic importation and static control}
+
+We start by revisiting the simple analytic results of \citet{ScaliaTomba:2008}.
+These were derived in response to simulations relating to border controls
+(e.g.\ \citet{Hollingsworth:2006}). We will derive these slightly differently
+from the original paper, and also generalise.
+
+First, let $X(t)$ be the cumulative number of importations at time $t$ and let
+$q$ be the probability that each introduction eventually becomes extinct (we
+assume these probabilities are independent). Then the probability that there
+has not yet been an introduction of a new variant that will lead to a large
+outbreak is
+\be
+\sum_{z=0}^{\infty} \mathrm{Pr}(X(t) = x) q^x = G_{X(t)}(q) \text{ ,}
+\ee
+where $G$ stands for a pgf -- using the expression for a Poisson random
+variable with mean $\Lambda(t)$ (although we could generalise to a negative
+binomial because infections tend to be clustered as seen in the data) we recover the main
+result for the time $T$ of failure to keep the variant out
+from \citeauthor{ScaliaTomba:2008} of
+\be
+F_T(t) = \mathrm{Pr}(T \leq t) = 1 - \exp(-(1-q)\Lambda(t)) \text{ .}
+\label{wst}
+\ee
+We use this equation for the choice $\Lambda(t) = 1.7 t$ to produce
+Figure~\ref{fig:F}.  As \citeauthor{ScaliaTomba:2008} note, substituting
+\be
+\Lambda(t) = \Lambda_0 {\rm e}^{rt}
+\text{ ,} \qquad
+t_D = \frac{\log(2)}{r} \text{ ,}
+\ee
+into \eqref{wst}, we get the following expression for the difference in median
+times of introduction under control of
+\be
+\tau_q - \tau_0 = \frac{-\log(1-q)}{\log(2)} t_D \text{ .}
+\ee
+Calling this delay in median time $\delta \tau$, we can derive an expression for
+the level of control needed to achieve this delay:
+\be
+q(\delta \tau) = 1- \exp\left( - \frac{\delta \tau}{t_D} \log(2)\right) \text{ .}
+\ee
+Evaluating this expression for some realistic parameter values gives
+Figure~\ref{fig:q}.
+
+\section{Dynamic importation and onward transmission}
+
+Now we consider disease dynamics -- this is done in a single-type / SIR
+framework for simplicity, but an equivalent multitype case is possible
+\citep{Dorman:2004}. In this model, each particle produces a number of
+offspring that is an iid copy of random variable $Y$ after a time that is
+$\mathrm{Exp}(\beta + \gamma)$ distributed, where
+\be
+G_{Y}(s)= \sum_{y=0}^{\infty} \mathrm{Pr}(Y = y) s^y = 
+\frac{1}{\beta + \gamma} \left(\beta\big(1+\frac{1}{k}(1-s)\big)^{-k}s + \gamma\right)
+ \text{ .} \label{SSEp}
+\ee
+In order to allow superspreading events (SSEs) to occur, we have chosen this
+offspring distribution so that the number of newly infected cases is drawn from
+a negative binomial distribution with mean $\frac{\beta}{\beta+\gamma}$ and
+dispersion parameter $k$ \citep{Lloyd-Smith:2005}. For $k=-1$ we recover
+standard infection dynamics, with \citet{Endo:2020} estimating $k\approx 0.1$.
+
+Using this offspring distribution, we define $q(t)$ as the probability that the
+lineage of a single imported case has become extinct by time $t$ (generalising
+the static $q$ above). Note that, in both cases, the mean number of secondary
+cases from a single infection event is given by $\frac{\beta}{\beta+\gamma} =
+\left.\frac{{\mathrm{d}}P}{{\mathrm{d}}s}\right|_{s=1}$. As noted in
+\citet{Dorman:2004} is equivalent to a birth-death chain in which the expected
+number of secondary cases produced over by a single individual over the course
+of their infection is $\frac{\beta}{\gamma} = R$.
+
+Now let $Z(t)$ be the number of particles in a branching process model with
+importation of particles at rate $\lambda(t)$ with integrated intensity 
+\be
+\Lambda(t) = \int_{u=0}^{t} \lambda(u) \mathrm{d}u
+\ee
+We can then generalise the results of \citeauthor{ScaliaTomba:2008} to obtain
+the probability that there is a positive number of cases time at time $t$,
+\be
+\mathrm{Pr}(Z(t) = 0) = 1 - {\mathrm{exp}}(-(1 - q(t))\Lambda(t))
+\label{Z0}
+\ee
+Since this quantity is very close to zero for most realistic scenarios, it is
+most natural to investigate the behaviour of $q(t)$ through solving the
+Kolmogorov equations for the branching process for different values of $k$ and
+reproduction number $R$ for the new variant in the UK environment. These
+results are shown in Figure~\ref{fig:q_t}.
+
+\bibliography{mybib}
+\bibliographystyle{abbrvnat}
+
+\clearpage
+
+\begin{figure}
+\centering
+\includegraphics[width=1.0\textwidth]{./voc_c.pdf}\\
+\includegraphics[width=1.0\textwidth]{./voc_la.pdf}\\
+\includegraphics[width=1.0\textwidth]{./voc_r.pdf}
+\caption{Analysis of data from the variant of concern.}
+\label{fig:voc}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+\centering
+\fbox{
+\includegraphics[width=0.99\textwidth]{./ons_sgtf.pdf}
+}
+\caption{\textbf{These outputs have been provided as management information for
+operational planning purposes. They are provisional estimates circulated before
+public release. This management information should not be shared widely and
+should only be used for operational planning purposes. This information is not
+to be used publicly and ahead of being released publicly by ONS.} Prevalence of
+wildtype and B.1.1.7 in the UK provided by the ONS CIS team, showing relatively
+long periods in some geographies before the establishment of exponential
+growth.}
+\label{fig:ONS}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{./var_F.pdf}
+\caption{Constant importation rate: probability of established introduction over
+time for different probabilities of stopping an introduction.}
+\label{fig:F}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.9\textwidth]{./var_q.pdf}\\
+\includegraphics[width=0.9\textwidth]{./var_q_log.pdf}
+\caption{Exponentially growing importation rate: Levels of control needed to shift median
+introduction time by a desired amount.}
+\label{fig:q}
+\end{figure}
+
+\clearpage
+
+\begin{figure}
+\centering
+\includegraphics[width=1.0\textwidth]{./q_t_k-1.0.pdf}\\
+\includegraphics[width=1.0\textwidth]{./q_t_k0.1.pdf}\\
+\includegraphics[width=1.0\textwidth]{./q_t_k1.0.pdf}
+\caption{Extinction probabilities for single lineages over time.}
+\label{fig:q_t}
+\end{figure}
+
+
+
+\end{document}
+
+
+
