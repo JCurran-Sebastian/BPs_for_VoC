@@ -6,9 +6,9 @@
 % infection from new variant, with 8 TaB (in this order):
 % S: 0, AZ, PF, N; R: 0, AZ, PF, N;
 
-rng(1); % Fix random seed for reproducibility
+% rng(1); % Fix random seed for reproducibility
 Plim = 10000; % Stochastic simulation stops when I reach this total prevalence (E+I)
-version = '_v3_long';
+version = '_v4_long';
 
 % % Mechanistic importation
 % basicimpr = 1.7; % daily rate of importation (measured in PHE data, so probably stopped)
@@ -109,6 +109,7 @@ for is = 1:Ns
     introrate(is) = trackintro / EL(ie,1);
     introratecheck(is) = sum((EL(2:end,2)-EL(1:(end-1),2))==1)/EL(ie,1);
     rancheck(is) = mean(ranstor(1:ie,2)<0.2);
+    timelastevent(is) = EL(ie,1);
     if (EL(ie,1)>100)
         longenough = longenough+1;
     end
