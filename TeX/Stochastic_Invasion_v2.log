@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.4.8)  24 MAY 2021 17:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.4.8)  27 MAY 2021 19:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -527,22 +527,51 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 LaTeX Warning: No \author given.
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 19--20
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--22
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--36
+
+ []
+
 [1
 
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-(./Stochastic_Invasion_v2.bbl) [2] (./Stochastic_Invasion_v2.aux)
+Underfull \hbox (badness 10000) in paragraph at lines 40--42
+
+ []
+
+[2]
+Overfull \hbox (25.76294pt too wide) in paragraph at lines 91--100
+ [] 
+ []
+
+(./Stochastic_Invasion_v2.bbl) [3] (./Stochastic_Invasion_v2.aux)
 Package rerunfilecheck Info: File `Stochastic_Invasion_v2.out' has not changed.
 
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 10942 strings out of 478994
- 159504 string characters out of 5858185
- 494021 words of memory out of 5000000
- 28238 multiletter control sequences out of 15000+600000
+ 10946 strings out of 478994
+ 159547 string characters out of 5858185
+ 495107 words of memory out of 5000000
+ 28240 multiletter control sequences out of 15000+600000
  416550 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 111i,9n,116p,1160b,323s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 111i,12n,116p,1083b,354s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
@@ -559,10 +588,10 @@ live/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
 ive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texliv
 e/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive
 /2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Stochastic_Invasion_v2.pdf (2 pages, 159779 bytes).
+Output written on Stochastic_Invasion_v2.pdf (3 pages, 164743 bytes).
 PDF statistics:
- 95 PDF objects out of 1000 (max. 8388607)
- 74 compressed objects within 1 object stream
- 13 named destinations out of 1000 (max. 500000)
+ 100 PDF objects out of 1000 (max. 8388607)
+ 78 compressed objects within 1 object stream
+ 15 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
