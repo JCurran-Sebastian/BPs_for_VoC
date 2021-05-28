@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.4.8)  27 MAY 2021 19:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.4.8)  28 MAY 2021 12:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -533,45 +533,54 @@ Underfull \hbox (badness 10000) in paragraph at lines 17--18
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 19--20
+Underfull \hbox (badness 10000) in paragraph at lines 20--21
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 21--22
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 35--36
+Underfull \hbox (badness 10000) in paragraph at lines 22--23
 
  []
 
 [1
 
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 40--42
+Underfull \hbox (badness 10000) in paragraph at lines 36--37
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--43
 
  []
 
 [2]
-Overfull \hbox (25.76294pt too wide) in paragraph at lines 91--100
+Overfull \hbox (25.76294pt too wide) in paragraph at lines 102--111
  [] 
  []
 
-(./Stochastic_Invasion_v2.bbl) [3] (./Stochastic_Invasion_v2.aux)
+<sig_over_mean_comparison.pdf, id=53, 433.62pt x 289.08pt>
+File: sig_over_mean_comparison.pdf Graphic file (type pdf)
+<use sig_over_mean_comparison.pdf>
+Package pdftex.def Info: sig_over_mean_comparison.pdf  used on input line 122.
+(pdftex.def)             Requested size: 430.00462pt x 286.6841pt.
+(./Stochastic_Invasion_v2.bbl) [3] [4 <./sig_over_mean_comparison.pdf>]
+[5] (./Stochastic_Invasion_v2.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `Stochastic_Invasion_v2.out' has not changed.
 
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+(rerunfilecheck)             Checksum: 015AA352A867301E5E56E5DE61943B21;701.
  ) 
 Here is how much of TeX's memory you used:
- 10946 strings out of 478994
- 159547 string characters out of 5858185
- 495107 words of memory out of 5000000
- 28240 multiletter control sequences out of 15000+600000
+ 10971 strings out of 478994
+ 159974 string characters out of 5858185
+ 496850 words of memory out of 5000000
+ 28255 multiletter control sequences out of 15000+600000
  416550 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 111i,12n,116p,1083b,354s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 111i,12n,116p,1083b,351s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
@@ -588,10 +597,10 @@ live/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
 ive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texliv
 e/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive
 /2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Stochastic_Invasion_v2.pdf (3 pages, 164743 bytes).
+Output written on Stochastic_Invasion_v2.pdf (5 pages, 184775 bytes).
 PDF statistics:
- 100 PDF objects out of 1000 (max. 8388607)
- 78 compressed objects within 1 object stream
- 15 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 167 PDF objects out of 1000 (max. 8388607)
+ 113 compressed objects within 2 object streams
+ 24 named destinations out of 1000 (max. 500000)
+ 38 words of extra memory for PDF output out of 10000 (max. 10000000)
 
