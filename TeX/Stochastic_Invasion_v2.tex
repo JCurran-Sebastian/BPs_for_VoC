@@ -16,6 +16,7 @@
 
 We cross-check the results of our Gillespie simulation with analytic results for a continuous-time multi-type branching process model with immigration that models the stochastic invasion of a variant strain into a heterogenous population. \\
 
+\subsection{Model Description}
 We consider the disease dynamics of an invading Variant of Concern (VoC) into a population that has had previous exposure to a wild-type strain and has undergone an incomplete vaccination program with 3 different vaccines (Pfizer (Pf), Astra-Zeneca (AZ) and a new, updated vaccine (N)). The novel strain is assumed to exhibit some resistance to both infection-acquired and vaccine-acquired immunity. We model the invasion and early transmission of this new strain using a multi-type branching process model \cite{dorman2004garden}. \\ 
 
 We consider an epidemic in which the population is divided into 16 types, namely, 8 exposed types $E_{d, v}$ and 8 infectious types $I_{d, v}$ where $d \in \{\mathrm{sus, rec}\}$ denotes whether an individual is susceptible to the current wild-type strain of COVID or has been infected previously and has recovered,  and where $v\in\{ \mathrm{U, AZ, Pf, N}\}$ denotes whether an individual is unvaccinated or has been vaccinated with the Astra-Zeneca, Pfizer or new vaccine, respectively. We order the types in our model combinatorially so that types 1-8 correspond to exposed cases and types 9-16 correspond to infectious cases. Exposed cases become infectious at a constant rate $\sigma$ and infectious cases have a constant recovery rate $\gamma$. \\
@@ -46,6 +47,8 @@ We then consider a process that begins with no cases of any type, but that allow
 \end{equation}
 Setting $s=0$ as before, we find the probability of zero cases of any type at time $r(t) = R(t, 0)$. This should no longer be interpreted as a probability that a strain goes extinct, as immigration allows new cases to enter the population even when the total number of cases is zero. However, we can loosely interpret $\lim_{t \to \infty}1 - r(t)$ as the probability that a VoC is successfully established in the population and that the resulting epidemic grows exponentially. 
 
+\subsection{Calculation of Means}
+
 The vector of the mean number of cases of each type at time $t$, $m(t) = {\mathbb{E}}[Z(t)] = ({\mathbb{E}}[Z_i(t)])_{i=1}^{16}$ is given by:
 \begin{equation}
 m(t) = m(0){\mathrm{e}}^{t\Omega} + \int_0^t \eta(\tau){\mathrm{e}}^{(t-\tau)\Omega} {\mathrm{d}}\tau 
@@ -59,31 +62,39 @@ where the matrix $\Omega$ has $(i, j)^{th}$ entry given by $\Omega_{i, j} = \fra
 %%%%%%%%
  %%%%%%% Possibly leave out variance work 
  %%%%%%%%
- 
-In order to obtain the variance matrix for the random vector $Z(t) = (Z_i(t))$, we consider the variance $W_i(t)$ for an outbreak that begins with no cases and considers only immigration of exposed cases of type $i$, which can be calculated via:
+\subsection{Calculation of Variances}
+In order to obtain the variance matrix for the random vector $Z(t) = (Z_i(t))$, we consider the variance matrix $W_i(t)$ for an outbreak that begins with no cases and considers only immigration of cases of type $i$, which can be calculated via:
 
 \begin{equation}
 W_i(t) = \int_0^t \eta_i(t) {\mathbb{E}}[Y_T^*Y_T | T=\tau] \, {\mathrm{d}}\tau
 \end{equation}
 
-If the matrix $\Omega$ is diagonalisable, so that $\Omega = ADA^{-1}$, we have that:
+for $1 \leq i \leq 16$. If the matrix $\Omega$ is diagonalisable, so that $\Omega = ADA^{-1}$, we have that:
 
 \begin{equation}
-W_i(t) = \eta_i H\Delta H^{-1} {\mathrm{Vec}}(C)
+W_i(t) = \eta_i H\Delta H^{-1} {\mathrm{Vec}}(C) \label{Delta}
 \end{equation}
  
 where the matrix $H= A \otimes (A^*)^{-1} \otimes (A^*)^{-1}$, ${\mathrm{Vec}}$ is the operator that vectorises the matrix $C$ by stacking its columns. $C$ is the $r^2 \times r$ matrix consisting of block $r \times r$ matrices $C_i$, given by:
 
 \begin{equation}
-C_i = \omega_i\Big(\frac{\partial^2 P_i}{\partial s_j^2}({\vb{1}}) + {\mathrm{diag}}(\frac{\partial P_i}{\partial s_j}({\vb{1}}) + e_i^*e_i - e_i^* \frac{\partial P_i}{\partial s_j}({\vb{1}}) - \frac{\partial P_i}{\partial s_j}({\vb{1}})^*e_i\Big)
+C_i = \omega_i\Big(\frac{\partial^2 P_i}{\partial s_j^2}({\vb{1}}) + {\mathrm{diag}}(\frac{\partial P_i}{\partial s_j}({\vb{1}})) + e_i^*e_i - e_i^* \frac{\partial P_i}{\partial s_j}({\vb{1}}) - \frac{\partial P_i}{\partial s_j}({\vb{1}})^*e_i\Big)
 \end{equation}
-Finally, $\Delta$ is the diagonal matrix whose $(i, j, k)^{th}$ entry is given by:
+In \ref{Delta}, $\Delta$ is the diagonal matrix whose $(i, j, k)^{th}$ entry is given by:
 \begin{equation}
 \frac{1}{\delta_i - (\delta_j + \delta_k)}\big[{\mathrm{e}}^{\delta_i t} - {\mathrm{e}}^{(\delta_j + \delta_k) t}\big] 
 \end{equation}
 where $\delta_i$ is the $i^{th}$ diagonal entry of the matrix $D$. 
 
+Finally, the variance-covariance matrix of the random vector $Z(t) = (Z_i(t))$ is given by 
+\begin{align}
+{\text{Var}}[Z(t)] &= \sum_{i=1}^{16} W_i(t) \\
+\Rightarrow {\text{Var}} \Big[\sum_{i=1}^{16} Z_i(t)\Big] &= \sum_{j=1}^{16} \sum_{k=1}^{16} {\text{Var}}[Z(t)] \label{variance}
+\end{align}
 
+\subsection{Consideration of Deterministic Limit}
+
+We finally consider the number of cases required for the ratio of the mean number of cases to the standard deviation to be constant over time. we interpret this quantity as the width of the confidence region around the mean number of cases over time, which after a certain limit should grow proportionally with the mean curve. For different scenarios, we plot the mean number of cases over time along with the standard deviation divided by the mean (see Figure \ref{fig: sig_over_mean}), and note that the latter quantity reaches a steady state in all cases by the time 100 cases have been infected, on average. In our main analysis, we seed our deterministic models with 2,000 infected cases on the 17th May 2021, which we can be sure satisfies the necessary conditions for a deterministic approximation to be valid. 
 
 \begin{table}[htb] 
 \begin{center}
@@ -104,6 +115,14 @@ $\eta$	&	Importation rate (days$^{-1}$) 	&  [0.02, 0.4] \\\hline
 \end{center}
 \end{table}
 
+
+\begin{figure}
+\centering
+
+\includegraphics[width = \textwidth]{sig_over_mean_comparison.pdf}
+\caption{Plot of the log of the expected number of cases over time (blue curve) for different values of R for the invading VoC, as well as the standard deviation of the number of cases divided by the mean (orange curve). By the time the expected number of cases has reached 100 (dashed red line), the gradient of the standard deviation divided by the mean is approximately zero. Once this has happened, we assume that the number of cases is approximately normally distributed over time, centred on the mean, and hence a deterministic approximation of the epidemic is valid. } 
+\label{fig: sig_over_mean}
+\end{figure}
 
 \bibliographystyle{plain}
 \bibliography{references.bib}
