@@ -39,7 +39,7 @@ We obtain expressions for the $Q_i(t)$ by solving:
 \begin{equation}
     \frac{\partial Q_i(t, s)}{\partial t} = -\omega_i[Q_i(t, s) - P_i(Q)], \quad Q(0, s) = s \label{Qeq}
 \end{equation}
-where $Q(t, s) = [Q_i(t, s)]_{i=1}^{16}$ is a vector. Setting $s=0$ gives the vector  $q(t) = Q(0, s)$ of extinction probabilities for a process starting with a single particle of type $i$. \\
+where $Q(t, s) = [Q_i(t, s)]_{i=1}^{16}$ is a vector. Setting $s=0$ gives the vector  $q(t) = Q(t, 0)$ of extinction probabilities for a process starting with a single particle of type $i$. \\
 
 We then consider a process that begins with no cases of any type, but that allows immigration of exposed cases of type $i$ at a rate $\eta_i$ and write $\eta = \sum_i \eta_i$. The total number of particles of all types at time $t$ for this process is denoted by $Z(t)$ and has the generating function $R(t, s) = \sum_{n=0}^\infty {\mathrm{Pr}}(Z(t) = n)s^n$, which we obtain by solving:
 \begin{equation}
@@ -75,15 +75,18 @@ for $1 \leq i \leq 16$. If the matrix $\Omega$ is diagonalisable, so that $\Omeg
 W_i(t) = \eta_i H\Delta H^{-1} {\mathrm{Vec}}(C) \label{Delta}
 \end{equation}
  
-where the matrix $H= A \otimes (A^*)^{-1} \otimes (A^*)^{-1}$, ${\mathrm{Vec}}$ is the operator that vectorises the matrix $C$ by stacking its columns. $C$ is the $r^2 \times r$ matrix consisting of block $r \times r$ matrices $C_i$, given by:
+where the matrix $H= A \otimes (A^*)^{-1} \otimes (A^*)^{-1}$, and ${\mathrm{Vec}}$ is the operator that vectorises the matrix $C$ by stacking its columns. $C$ is the $16^2 \times 16$ matrix consisting of block $16 \times 16$ matrices $C_i$, given by:
 
 \begin{equation}
 C_i = \omega_i\Big(\frac{\partial^2 P_i}{\partial s_j^2}({\vb{1}}) + {\mathrm{diag}}(\frac{\partial P_i}{\partial s_j}({\vb{1}})) + e_i^*e_i - e_i^* \frac{\partial P_i}{\partial s_j}({\vb{1}}) - \frac{\partial P_i}{\partial s_j}({\vb{1}})^*e_i\Big)
 \end{equation}
-In \ref{Delta}, $\Delta$ is the diagonal matrix whose $(i, j, k)^{th}$ entry is given by:
+
+for $1 \leq i \leq 16$. Here, $e_i$ refers to the standard $i^{th}$ basis vector. In \ref{Delta}, $\Delta$ is the diagonal matrix whose $(i, j, k)^{th}$ entry is given by:
+
 \begin{equation}
 \frac{1}{\delta_i - (\delta_j + \delta_k)}\big[{\mathrm{e}}^{\delta_i t} - {\mathrm{e}}^{(\delta_j + \delta_k) t}\big] 
 \end{equation}
+
 where $\delta_i$ is the $i^{th}$ diagonal entry of the matrix $D$. 
 
 Finally, the variance-covariance matrix of the random vector $Z(t) = (Z_i(t))$ is given by 
